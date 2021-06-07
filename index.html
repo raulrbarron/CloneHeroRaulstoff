@@ -6,25 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Raulstoff Canciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 
 </head>
-<body onload="traerDatos();">
-    <div>Lista de canciones</div>
+<body  >
+    
+
+    <nav class="navbar   navbar-expand-lg navbar-dark bg-dark ">
+        <a class="navbar-brand" href="#">Raulstoff</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active ">
+              <a class="nav-link " href="https://www.facebook.com/rraulstoff">Facebook </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.instagram.com/raulstoff/?hl=es-la">Instagram</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="https://twitter.com/raulstoff">Twitter</a>
+            </li>
+          </ul>
+          
+        </div>
+      </nav>
+      
+      
+   
+    
+    <div >  LISTA DE CANCIONES  </div>
     <form class="search-form">
-        <input type="text" class="search" placeholder="Canciones">
-        
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-dark" class="btn btn-primary" type="button" onclick="traerDatos();">Ver todas</button>
+          </div>
+        <input type="text" class="form-control" placeholder="Cancion o Artista" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        </div>
 
         <div class="container">
             <div class="section">
                 
     
-                <table id="tabla" class="suggestions">
-                    <thead>
+                <table id="tabla" class="table">
+                    <thead >
                         <tr>
                             <th>Artista</th>
                             <th>Cancion</th>
+                            <th>Album</th>
+                            <th>Genero</th>
     
                         </tr>
                     </thead>
@@ -63,18 +99,24 @@
             const regex = new RegExp(this.value, 'gi');
             const songName = place.Name.replace(regex, `<span class=hl>${this.value}</span>`);
             const artistName = place.Artist.replace(regex, `<span class=hl>${this.value}</span>`);
+            const albumName = place.Album;
+            const genero = place.Genre;
             return `
             <table>
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th>Artista</th>
                         <th>Cancion</th>
+                        <th>Album</th>
+                        <th>Genero</th>
                     </tr>
                 </thead>
                 <tbody >
                     <tr>
                             <td>${artistName}</td>
-                            <td>${songName}</td>        
+                            <td>${songName}</td> 
+                            <td>${albumName}</td>
+                            <td>${genero}</td>
                     </tr>
                 </tbody>
             </table>
@@ -84,8 +126,8 @@
     }
 
 
-const searchInput = document.querySelector('.search');
-const suggestions = document.querySelector('.suggestions');
+const searchInput = document.querySelector('.form-control');
+const suggestions = document.querySelector('.table');
 
 searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
@@ -117,6 +159,8 @@ searchInput.addEventListener('keyup', displayMatches);
                             <tr>
                             <td>${item.Artist}</td>
                             <td>${item.Name}</td>
+                            <td>${item.Album}</td>
+                            <td>${item.Genre}</td>
                             </tr>
                         `
                     }
